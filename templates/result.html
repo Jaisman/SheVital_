@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <div class="container text-center py-5">
+        <h1 class="text-primary">Diagnosis Result</h1>
+        <p class="lead">Based on your symptoms, we predict:</p>
+        <h2 class="text-danger">{{ disease }}</h2>
+        
+        <h4 class="mt-4">Matched Symptoms:</h4>
+        <ul class="list-group">
+            {% for symptom in matched_symptoms %}
+                <li class="list-group-item">{{ symptom }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('symptom') }}" class="btn btn-primary mt-4">Check Again</a>
+    </div>
+
+    {% endblock %}

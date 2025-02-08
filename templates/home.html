@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheVitals - Your Wellness Partner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF85A2;
+            --secondary: #FFB7C5;
+            --accent: #FF4D6D;
+            --light: #FFF0F3;
+            --dark: #2C1810;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFE9EC 100%);
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        .hero-section {
+            background: url('https://source.unsplash.com/random/1200x400/?wellness,women') center/cover;
+            padding: 120px 0;
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(255, 133, 162, 0.9), rgba(255, 183, 197, 0.9));
+        }
+
+        .welcome-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-title {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .welcome-subtitle {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .features-section {
+            padding: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.2);
+        }
+
+        .feature-card .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .feature-card .card-body {
+            padding: 2rem;
+        }
+
+        .feature-card .card-title {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card .card-text {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-feature {
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-feature:hover {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .decorative-shape {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .shape-1 { top: -50px; right: 10%; }
+        .shape-2 { bottom: -50px; left: 5%; }
+
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section {
+                padding: 80px 0;
+            }
+            
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {%extends "base.html"%}
+    {% block content%}
+    <section class="hero-section">
+        <div class="decorative-shape shape-1"></div>
+        <div class="decorative-shape shape-2"></div>
+        <div class="container text-center welcome-text">
+            <h1 class="welcome-title">Welcome, {{ current_user['username'] }}! ✨</h1>
+            <p class="welcome-subtitle">Your journey to wellness begins here</p>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card card">
+                        <img src="../static/period.jpeg" class="card-img-top" alt="Period Tracking">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Period Tracker</h3>
+                            <p class="card-text">Track your menstrual cycle with ease and gain insights into your reproductive health. Stay informed about your body's natural rhythm.</p>
+                            <a href="/period" class="btn btn-feature">Track My Cycle</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card card">
+                        <img src="../static/women.jpeg" class="card-img-top" alt="Health Monitoring">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Health Monitor</h3>
+                            <p class="card-text">Monitor your well-being holistically. Keep track of your physical and emotional health with our comprehensive tools.</p>
+                            <a href="/symptom" class="btn btn-feature">Monitor Health</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card card">
+                        <img src="../static/doctor.jpeg" class="card-img-top" alt="Doctor Consultation">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Expert Consultation</h3>
+                            <p class="card-text">Connect with experienced healthcare professionals who understand women's health needs. Get personalized care and advice.</p>
+                            <a href="/docs" class="btn btn-feature">Meet Experts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+</html>
+
+
+<!-- 
+ background #F0ECEB,
+ light pink #ECC3CB,
+ little dark #C55770,
+ very dark #C8094C
+-->

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        :root {
+            --primary-color: #FF69B4;
+            --secondary-color: #FFC0CB;
+            --accent-color: #FFB6C1;
+        }
+        
+        body {
+            background-color: #FFF5F6;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .header-title {
+            color: #4A4A4A;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .card {
+            border-radius: 15px;
+            border: none;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 2px solid var(--secondary-color);
+            border-radius: 15px 15px 0 0 !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(255, 105, 180, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #FF1493;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(255, 105, 180, 0.3);
+        }
+        
+        .form-control {
+            border: 2px solid #FFE4E1;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 105, 180, 0.25);
+        }
+        
+        .wellness-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="header-title">Women's Wellness Tracker</h1>
+            <p class="text-muted">Your safe space to track and monitor your health journey</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-header py-4">
+                        <h2 class="text-center mb-0" style="color: var(--primary-color);">How are you feeling today?</h2>
+                    </div>
+                    <div class="card-body p-5">
+                        <form action="{{url_for('predict')}}" method="POST">
+                            <div class="mb-4">
+                                <label for="symptoms" class="form-label fw-bold" style="color: #4A4A4A;">Please describe your symptoms:</label>
+                                <textarea 
+                                    class="form-control" 
+                                    id="symptoms"
+                                    name="symptoms" 
+                                    rows="6" 
+                                    placeholder="Share your symptoms here... We're here to help you track your wellness journey. &#10;&#10;For example: headaches, menstrual cramps, mood changes, fatigue, etc."
+                                ></textarea>
+                                <small class="text-muted mt-2 d-block">Your health information is private and secure.</small>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary px-5 py-3">
+                                    Track My Symptoms
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

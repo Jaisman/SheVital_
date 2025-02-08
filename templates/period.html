@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        overflow-x: hidden;
+        background-color: #F0ECEB;
+    }
+
+    /* Calendar Styling */
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        margin-top: 20px;
+    }
+
+    .calendar-day {
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        background: white;
+        color: #800080;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar-day:hover {
+        background-color: #E6E6FA;
+        transform: scale(1.05);
+    }
+
+    .period-day {
+        background-color: #FF69B4;
+        color: white;
+        font-weight: bold;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Card Styling */
+    .card {
+        width: 18rem;
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s ease-in-out;
+        background: linear-gradient(135deg, #FFC0CB, #FF69B4);
+        color: #800080;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+        padding: 20px;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 2px solid #800080;
+        font-size: 1rem;
+    }
+
+    /* Button Styling */
+    .btn-custom {
+        background: linear-gradient(135deg, #C8094C, #9400D3);
+        color: white;
+        font-family: cursive;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        border: none;
+        transition: 0.3s ease-in-out;
+        text-align: center;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #9400D3, #C8094C);
+        transform: scale(1.05);
+    }
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        text-align: left;
+        color: white;
+        font-family: cursive;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 10px;
+    }
+
+    /* Centering Content */
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 4%;
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        align-items: center;
+    }
+
+</style>
+
+<img class="Slideshow__Image" src="https://playtextampons.com/cdn/shop/files/1920x734-header-tracker_1600x.webp?v=1676266547" alt="Period Tracker" style="opacity: 1; width: 100vw; position: relative;">
+<div class="hero">
+    <h1>Period Tracker</h1>
+    <p>
+        Periods are no jokes. Keeping track of them is vital for your health <br> and we help you with that.
+    </p>
+</div>
+
+<!-- Input Cards -->
+<div class="content-container">
+    <div class="card-container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Date of your last period?</h5>
+                <input type="date" id="last-period-date">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">How long did it last?</h5>
+                <input type="number" id="period-duration" value="5">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your cycle length?</h5>
+                <input type="number" id="cycle-length" value="28">
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-custom mt-4" onclick="trackPeriods()">Track your periods</button>
+</div>
+
+<div id="calendar" class="mt-5"></div>
+
+<!-- JavaScript Logic -->
+<script>
+    function trackPeriods() {
+        var lastPeriodDate = new Date(document.getElementById("last-period-date").value);
+        var periodDuration = parseInt(document.getElementById("period-duration").value);
+        var cycleLength = parseInt(document.getElementById("cycle-length").value);
+
+        var calendar = document.getElementById("calendar");
+        calendar.innerHTML = "";
+
+        var currentDate = new Date(lastPeriodDate);
+        for (var i = 0; i < 3; i++) { 
+            var monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            var monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+            var monthTitle = document.createElement("h3");
+            monthTitle.style.color = "#C8094C";
+            monthTitle.innerText = monthStart.toLocaleString('default', { month: 'long', year: 'numeric' });
+            calendar.appendChild(monthTitle);
+
+            var monthDays = document.createElement("div");
+            monthDays.className = "calendar";
+
+            for (var d = 1; d <= monthEnd.getDate(); d++) {
+                var day = document.createElement("div");
+                day.className = "calendar-day";
+                day.innerText = d;
+
+                var thisDate = new Date(monthStart.getFullYear(), monthStart.getMonth(), d);
+                if (thisDate >= lastPeriodDate && thisDate < lastPeriodDate.setDate(lastPeriodDate.getDate() + periodDuration)) {
+                    day.classList.add("period-day");
+                }
+
+                lastPeriodDate.setDate(lastPeriodDate.getDate() - periodDuration); 
+
+                if ((thisDate.getTime() - lastPeriodDate.getTime()) % (cycleLength * 24 * 60 * 60 * 1000) < periodDuration * 24 * 60 * 60 * 1000) {
+                    day.classList.add("period-day");
+                }
+
+                monthDays.appendChild(day);
+            }
+            calendar.appendChild(monthDays);
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+    }
+</script>
+{% endblock %}
