@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        :root {
+            --primary-pink: #FF69B4;
+            --secondary-pink: #FFC0CB;
+            --light-pink: #FFF5F7;
+        }
+        
+        .doctor-card {
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary-pink);
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .specialty-badge {
+            background-color: var(--secondary-pink);
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .contact-button {
+            background-color: var(--primary-pink);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            background-color: var(--secondary-pink);
+            color: #333;
+        }
+        
+        .doctor-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-pink);
+        }
+    </style>
+<body style="background-color: var(--light-pink);">
+    <header class="py-5 bg-white shadow-sm">
+        <div class="container">
+            <h1 class="text-center mb-2" style="color: var(--primary-pink);">Our Doctor Consultants</h1>
+            <p class="text-center text-muted lead">Expert Healthcare Professionals at Your Service</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Search and Filter Section -->
+        <div class="row mb-4">
+            <div class="col-md-6 mx-auto">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search doctors by name or specialty...">
+                    <button class="btn contact-button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctors Grid -->
+        <div class="row g-4">
+            <!-- Doctor 1 -->
+            <div class="col-md-6">
+                <div class="card doctor-card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="../static/doc1.avif" alt="Dr. Sarah Johnson" class="doctor-image me-4 d-flex object-fit-cover">
+                            <div>
+                                <h3 class="card-title h4 mb-1">Dr. Sarah Johnson</h3>
+                                <p class="text-muted mb-2">City General Hospital</p>
+                                <span class="badge specialty-badge">Gynecologist</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2"></i> +1 (555) 123-4567</p>
+                                <p class="mb-0"><i class="fas fa-envelope me-2"></i> dr.sarah@citygeneral.com</p>
+                            </div>
+                            <button class="btn contact-button">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="col-md-6">
+                <div class="card doctor-card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="../static/doc1.avif" alt="Dr. Emily Chen" class="doctor-image me-4">
+                            <div>
+                                <h3 class="card-title h4 mb-1">Dr. Emily Chen</h3>
+                                <p class="text-muted mb-2">Women's Wellness Center</p>
+                                <span class="badge specialty-badge">Obstetrician</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2"></i> +1 (555) 234-5678</p>
+                                <p class="mb-0"><i class="fas fa-envelope me-2"></i> dr.emily@womenswellness.com</p>
+                            </div>
+                            <button class="btn contact-button">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="col-md-6">
+                <div class="card doctor-card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="../static/doc1.avif" alt="Dr. Maria Rodriguez" class="doctor-image me-4">
+                            <div>
+                                <h3 class="card-title h4 mb-1">Dr. Maria Rodriguez</h3>
+                                <p class="text-muted mb-2">St. Mary's Medical Center</p>
+                                <span class="badge specialty-badge">Endocrinologist</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2"></i> +1 (555) 345-6789</p>
+                                <p class="mb-0"><i class="fas fa-envelope me-2"></i> dr.maria@stmarys.com</p>
+                            </div>
+                            <button class="btn contact-button">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor 4 -->
+            <div class="col-md-6">
+                <div class="card doctor-card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="../static/doc1.avif" alt="Dr. Lisa Thompson" class="doctor-image me-4">
+                            <div>
+                                <h3 class="card-title h4 mb-1">Dr. Lisa Thompson</h3>
+                                <p class="text-muted mb-2">Central Women's Hospital</p>
+                                <span class="badge specialty-badge">Fertility Specialist</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><i class="fas fa-phone-alt me-2"></i> +1 (555) 456-7890</p>
+                                <p class="mb-0"><i class="fas fa-envelope me-2"></i> dr.lisa@centralwomens.com</p>
+                            </div>
+                            <button class="btn contact-button">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Need help finding the right doctor? Call our helpline: <strong>1-800-SHEVITAL</strong></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+{% endblock %}

@@ -3,6 +3,8 @@ from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from bson.objectid import ObjectId
+from dotenv import load_dotenv
+load_dotenv() 
 import spacy
 import numpy as np
 from rapidfuzz import process
@@ -25,8 +27,8 @@ symptom_to_index = {symptom: idx for idx, symptom in enumerate(symptom_features)
 model_path = os.path.join("models", "model.h5")
 model = tf.keras.models.load_model(model_path)
 
-app.config['SECRET_KEY'] = 'period_tracker'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/flaskdb'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -104,20 +106,38 @@ def period():
 def symptom():
     return render_template('symptom.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/docs')
+def docs():
+    return render_template('doctor.html')
+def generate_ngrams(text, n=3):
+    words = text.split()
+    ngrams = []
+    
+    for i in range(len(words)):
+        for j in range(i+1, min(i+n, len(words))+1):
+            ngrams.append(" ".join(words[i:j]))
+    
+    return ngrams
+
 def match_symptoms(user_input, symptoms_list):
-    user_doc = nlp(user_input.lower())
-    matched_symptoms = []
+    user_input = user_input.lower()
+    user_doc = nlp(user_input)
+    user_phrases = generate_ngrams(user_input, n=3)
 
-    for token in user_doc:  
-        token_text = token.text.strip()
-        if len(token_text) > 2:  
-            result = process.extractOne(token_text, symptoms_list)
-            if result:
-              best_match, score, _ = result
-            if score > 80: 
-                matched_symptoms.append(best_match)
+    matched_symptoms = set()
 
-    return list(set(matched_symptoms))
+    for phrase in user_phrases:
+        result = process.extractOne(phrase, symptoms_list)
+        if result:
+            best_match, score = result[0], result[1]
+            if score > 90:
+                matched_symptoms.add(best_match)
+
+    return list(matched_symptoms)
 
 @app.route('/predict', methods = ['POST'])
 def predict():
